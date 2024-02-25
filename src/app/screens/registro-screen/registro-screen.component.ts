@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
+// Servicios de Validación
+import { UserService } from 'src/app/services/user.service';
+
+// JQuery
+declare var $: any;
+
 @Component({
   selector: 'app-registro-screen',
   templateUrl: './registro-screen.component.html',
@@ -8,28 +14,31 @@ import { Location } from '@angular/common';
 })
 export class RegistroScreenComponent implements OnInit{
 
+  //Propiedades
+  public user: any = {};
+  public idUser: Number=0;
+  
+  //Contraseñas
+  public hide_1: boolean = false;
+  public hide_2: boolean = false;
+  public inputType_1: string = 'password';
+  public inputType_2: string = 'password';
+
+  //Errores
+  public errors:any ={};
+
   constructor(
-    private location: Location
+    private location: Location,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    
+    this.user = this.userService.esquemaUser();
+    console.log("User: ", this.user);
   }
 
-    //Propiedades
-    public user: any = {};
-    public idUser: Number=0;
-    //Contraseñas
-    public hide_1: boolean = false;
-    public hide_2: boolean = false;
-    public inputType_1: string = 'password';
-    public inputType_2: string = 'password';
-    //Errores
-    public errors:any ={};
-
-      //Funciones para Password
-  showPassword()
-  {
+  //Funciones para Password
+  showPassword(){
     if(this.inputType_1 == 'password'){
       this.inputType_1 = 'text';
       this.hide_1 = true;
@@ -40,8 +49,7 @@ export class RegistroScreenComponent implements OnInit{
     }
   }
 
-  showPwdConfirmar()
-  {
+  showPwdConfirmar(){
     if(this.inputType_2 == 'password'){
       this.inputType_2 = 'text';
       this.hide_2 = true;
@@ -65,5 +73,13 @@ export class RegistroScreenComponent implements OnInit{
     this.location.back();
   }
 
-  registrar(){}
+  public registrar(){
+    //Validar
+    this.errors = [];
+
+    this.errors = this.userService.validateUser(this.user)
+    if(!$.isEmptyObject(this.errors)){
+      return false;
+    }
+  }
 }
