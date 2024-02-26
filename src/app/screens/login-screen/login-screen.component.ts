@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+// Servicios de Fachada
+import { FacadeService } from 'src/app/services/facade.service';
+
 //JQuery
 declare var $: any;
 
@@ -18,6 +21,7 @@ export class LoginScreenComponent implements OnInit{
   public errors:any = {};
 
   constructor(
+    private facadeService: FacadeService,
     private router: Router
   ) {}
 
@@ -26,7 +30,24 @@ export class LoginScreenComponent implements OnInit{
   }
 
   public login(){
+    //Validar
+    this.errors = [];
 
+    this.errors = this.facadeService.validarLogin(this.username, this.password);
+    if(!$.isEmptyObject(this.errors)){
+      return false;
+    }
+     //Si no hay Errores, Iniciamos Sesion
+     this.facadeService.login(this.username, this.password).subscribe({
+      next: (response)=>{
+        console.log(response);
+        this.facadeService.saveUserData(response);
+        this.router.navigate(["home"]);
+      }, 
+      error: (error)=>{
+        alert("No se pudo iniciar sesión");
+      }
+    });
   }
 
   public showPassword(){
