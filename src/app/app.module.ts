@@ -18,12 +18,14 @@ import { MatSelectModule } from '@angular/material/select';
 
 // Servicios HTTP
 import { HttpClientModule } from '@angular/common/http';
+import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginScreenComponent,
-    RegistroScreenComponent
+    RegistroScreenComponent,
+    HomeScreenComponent
   ],
   imports: [
     BrowserModule,

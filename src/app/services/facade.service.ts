@@ -71,7 +71,7 @@ export class FacadeService {
     }
   
     //Cerrar Sesión
-    logout(): Observable<any> {
+    logOut(): Observable<any> {
       var headers: any;
       var token = this.getSessionToken();
       headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});

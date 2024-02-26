@@ -1,0 +1,40 @@
+<!-- header -->
+<div class="header-home">
+    <button class="logout-hide" mat-flat-button></button>
+    <span class="title">Dashboard</span>
+    <button class="logout" mat-flat-button color="warn" (click)="logOut()">Cerrar Sesión</button>
+</div>
+<section class="game-card">
+    <div class="game-container">
+        <h2>Juego de Dados</h2>
+        
+        <div class="choose-level">
+            <label for="difficulty">Dificultad: </label>
+            <select id="difficulty" [(ngModel)]="difficulty" (change)="updateDifficulty()">
+                <option value="novato">Novato</option>
+                <option value="normal">Normal</option>
+                <option value="experto">Experto</option>
+            </select>
+        </div>
+
+        <div class="scoring-required">
+            <p id="score-needed">Puntuación necesaria: <span>{{ scoreNeeded }}</span></p>
+        </div>
+
+        <div class="current-score">
+            <p id="score-obtained">Puntuación actual: <span>{{ currentScore }}</span></p>
+        </div>
+
+        <div class="dice-container">
+            <div *ngFor="let die of diceRolls" class="die">{{ die }}</div>
+        </div>
+
+        <button class="roll-button" (click)="rollDice()">Lanzar Dados</button>
+    </div>
+
+    <div class="record-container">
+        <h2>Historial de Juegos</h2>
+    </div>
+</section>
+
+
