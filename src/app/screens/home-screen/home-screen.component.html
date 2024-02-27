@@ -1,9 +1,12 @@
 <!-- header -->
-<div class="header-home">
+<section class="header-container">
     <button class="logout-hide" mat-flat-button></button>
     <span class="title">Dashboard</span>
     <button class="logout" mat-flat-button color="warn" (click)="logOut()">Cerrar Sesión</button>
-</div>
+</section>
+<!-- end header -->
+
+<!-- game card -->
 <section class="game-card">
     <div class="game-container">
         <h2>Juego de Dados</h2>
@@ -33,8 +36,33 @@
     </div>
 
     <div class="record-container">
-        <h2>Historial de Juegos</h2>
+        <h1>Historial de Juegos</h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">N1 - Wins</th>
+                    <th scope="col">N2 - Wins</th>
+                    <th scope="col">N3 - Wins</th>
+                    <th scope="col">N1 - Lost</th>
+                    <th scope="col">N2 - Lost</th>
+                    <th scope="col">N3 - Lost</th>
+                    <th scope="col">Total Wins</th>
+                    <th scope="col">Total Lost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>{{record_user.user}}</td>
+                    <td>{{record_user.n1w}}</td>
+                    <td>{{record_user.n2w}}</td>
+                    <td>{{record_user.n3w}}</td>
+                    <td>{{record_user.n1l}}</td>
+                    <td>{{record_user.n2l}}</td>
+                    <td>{{record_user.n3l}}</td>
+                    <td>{{record_user.wins}}</td>
+                    <td>{{record_user.losses}}</td>
+                </tbody>
+            </table>
     </div>
 </section>
-
-
+<!-- end game card -->
