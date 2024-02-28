@@ -15,17 +15,20 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Servicios HTTP
 import { HttpClientModule } from '@angular/common/http';
 import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
+import { ActionModalComponent } from './modals/action-modal/action-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginScreenComponent,
     RegistroScreenComponent,
-    HomeScreenComponent
+    HomeScreenComponent,
+    ActionModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { HomeScreenComponent } from './screens/home-screen/home-screen.component
     MatDatepickerModule,
     MatInputModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

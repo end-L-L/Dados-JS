@@ -1,0 +1,59 @@
+<div class="wrapper">
+    <div class="icon-close">
+        <button class="btn" (click)="cerrar_modal()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <div class="body-modal">
+        <div *ngIf="resultado === 1; else perdedorTemplate">
+            <p class="title-modal">¡Victoria!</p>
+          </div>
+          <ng-template #perdedorTemplate>
+            <div *ngIf="resultado === 0">
+              <p class="title-modal">¡Derrota!</p>
+            </div>
+          </ng-template>
+          <h1 class="title-modal">¿Volver a Jugar o Salir?</h1>
+          
+        <!-- <span class="descripcion">Estás a punto de eliminar este usario. Una vez que lo elimines no podrás deshacer esta acción.</span> -->
+
+        <div class="record-container">
+            <h1 class="title-modal">Historial de Juegos</h1>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">N1 - Wins</th>
+                        <th scope="col">N2 - Wins</th>
+                        <th scope="col">N3 - Wins</th>
+                        <th scope="col">N1 - Lost</th>
+                        <th scope="col">N2 - Lost</th>
+                        <th scope="col">N3 - Lost</th>
+                        <th scope="col">Total Wins</th>
+                        <th scope="col">Total Lost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td>{{userName}}</td>
+                        <td>{{record_user.n1w}}</td>
+                        <td>{{record_user.n2w}}</td>
+                        <td>{{record_user.n3w}}</td>
+                        <td>{{record_user.n1l}}</td>
+                        <td>{{record_user.n2l}}</td>
+                        <td>{{record_user.n3l}}</td>
+                        <td>{{record_user.wins}}</td>
+                        <td>{{record_user.losses}}</td>
+                    </tbody>
+                </table>
+        </div>
+
+        <div class="buttons-modal">
+            <button mat-button class="btn-regresar" (click)="cerrar_modal()">
+                Volver a Jugar
+            </button>
+            <button mat-button class="btn-eliminar" (click)="logOut()">
+                Cerrar Sesión
+            </button>
+        </div>
+    </div>
+</div>

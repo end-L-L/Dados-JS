@@ -3,6 +3,10 @@ import { FacadeService } from 'src/app/services/facade.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 
+// Modal
+import { MatDialog } from '@angular/material/dialog';
+import { ActionModalComponent } from 'src/app/modals/action-modal/action-modal.component';
+
 @Component({
   selector: 'app-home-screen',
   templateUrl: './home-screen.component.html',
@@ -17,10 +21,14 @@ export class HomeScreenComponent implements OnInit{
   public record_user: any = {};
 
   // Game Properties
-  currentScore: number = 0; // Almacena la puntuación actual, inicializada en 0.
-  scoreNeeded: number = 6; // Indica la puntuación necesaria para ganar, inicializada en 6.
-  difficulty: string = 'novato'; // Indica el nivel de dificultad actual, inicializado como 'novato'.
-  diceRolls: number[] = []; // Almacena los resultados de los últimos lanzamientos de dados en un arreglo vacío.
+  public currentScore: number = 0; // Almacena la puntuación actual, inicializada en 0.
+  public scoreNeeded: number = 6; // Indica la puntuación necesaria para ganar, inicializada en 6.
+  public difficulty: string = 'novato'; // Indica el nivel de dificultad actual, inicializado como 'novato'.
+  public diceRolls: number[] = []; // Almacena los resultados de los últimos lanzamientos de dados en un arreglo vacío.
+  public flag: number = 1; // Indica si el usuario ganó o perdió, inicializado en 1.
+  public aux: number = 0;  // Contador de oportunidades (max 3)
+  public difficultySelected: boolean = false;
+  public rollDiceButton: boolean = false;
 
   difficultySettings = {
     novato:  {dice: 1, scoreNeeded: 6},
@@ -31,7 +39,8 @@ export class HomeScreenComponent implements OnInit{
   constructor(
     private facadeService: FacadeService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +64,9 @@ export class HomeScreenComponent implements OnInit{
   }
 
   rollDice(): void {
+    if(this.aux === 0)
+      this.difficultySelected = true;
+
     let {dice, scoreNeeded} = this.difficultySettings[this.difficulty]; // Obtiene los valores de dice y scoreNeeded de la configuración de dificultad actual.
     this.diceRolls = []; // Resetea el arreglo diceRolls.
     let totalScore = 0;
@@ -75,35 +87,52 @@ export class HomeScreenComponent implements OnInit{
     this.currentScore = 0;
   }
 
-  flag = 1;
 
   checkWin(score: number, scoreNeeded: number): void {
   if (score === scoreNeeded) {
-    alert('¡Ganaste!');
+    //alert('¡Ganaste!');
     this.flag = 1;
   } else {
-    alert('Intenta de nuevo.');
+    //alert('Intenta de nuevo.');
     this.flag = 0;
-  }
-    console.log("Result: ", this.flag);
-    console.log("Level: ", this.difficultySettings[this.difficulty].dice);
-    console.log("id", this.id);
-  
-    this.dataRecord = {
-      result: this.flag,
-      level: this.difficultySettings[this.difficulty].dice,
-      id: this.id
-    }
-    this.apiService.actualizarRecord(this.dataRecord).subscribe({
-      next: (response) => {
-        console.log("Record Actualizado: ", response);
-      },
-      error: (error) => {
-        console.error(error);
+  } 
+    //console.log("Result: ", this.flag);
+    //console.log("Level: ", this.difficultySettings[this.difficulty].dice);
+    //console.log("id", this.id);
+    this.aux++;
+    // O gana antes de la tercera oportunidad o pierde
+    if( this.flag != 0 || this.aux === 3 ){
+      this.rollDiceButton = true;
+      this.aux = 0;
+      this.dataRecord = {
+        result: this.flag,
+        level: this.difficultySettings[this.difficulty].dice,
+        id: this.id
       }
-    });
+      this.apiService.actualizarRecord(this.dataRecord).subscribe({
+        next: (response) => {
+          console.log("Record Actualizado: ", response);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+
+      setTimeout(() => {
+        // Test Modal
+        const dialogRef = this.dialog.open(ActionModalComponent, {
+          data: {resultado: this.flag},
+          /*height: '268px',
+          width: '328px',*/
+        });
+        this.difficultySelected = false;
+        this.rollDiceButton = false;
+        this.currentScore = 0;
+        this.diceRolls = [];
+      }, 1000);     
+    }
+
   }
-  
   
   public obtenerRecord(){
     this.apiService.obtenerRecord().subscribe({

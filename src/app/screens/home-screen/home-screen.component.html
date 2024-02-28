@@ -13,7 +13,7 @@
         
         <div class="choose-level">
             <label for="difficulty">Dificultad: </label>
-            <select id="difficulty" [(ngModel)]="difficulty" (change)="updateDifficulty()">
+            <select id="difficulty" [(ngModel)]="difficulty" (change)="updateDifficulty()" [disabled]="difficultySelected">
                 <option value="novato">Novato</option>
                 <option value="normal">Normal</option>
                 <option value="experto">Experto</option>
@@ -21,34 +21,34 @@
         </div>
 
         <div class="scoring-required">
-            <p id="score-needed">Puntuación necesaria: <span>{{ scoreNeeded }}</span></p>
+            <p id="score-needed">Puntuación Necesaria: <span>{{ scoreNeeded }}</span></p>
         </div>
 
         <div class="current-score">
-            <p id="score-obtained">Puntuación actual: <span>{{ currentScore }}</span></p>
+            <p id="score-obtained">Puntuación Actual: <span>{{ currentScore }}</span></p>
         </div>
 
         <div class="dice-container">
             <div *ngFor="let die of diceRolls" class="die">{{ die }}</div>
         </div>
 
-        <button class="roll-button" (click)="rollDice()">Lanzar Dados</button>
+        <button class="roll-button" (click)="rollDice()" [disabled]="rollDiceButton">Lanzar Dados</button>
     </div>
 
-    <div class="record-container">
+    <!-- <div class="record-container">
         <h1>Historial de Juegos</h1>
             <table class="table table-hover">
                 <thead>
                     <tr>
                     <th scope="col">Usuario</th>
-                    <th scope="col">N1 - Wins</th>
-                    <th scope="col">N2 - Wins</th>
-                    <th scope="col">N3 - Wins</th>
-                    <th scope="col">N1 - Lost</th>
-                    <th scope="col">N2 - Lost</th>
-                    <th scope="col">N3 - Lost</th>
-                    <th scope="col">Total Wins</th>
-                    <th scope="col">Total Lost</th>
+                    <th scope="col">N1 - W</th>
+                    <th scope="col">N2 - W</th>
+                    <th scope="col">N3 - W</th>
+                    <th scope="col">N1 - L</th>
+                    <th scope="col">N2 - L</th>
+                    <th scope="col">N3 - L</th>
+                    <th scope="col">Total Ganados</th>
+                    <th scope="col">Total Perdidos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +63,6 @@
                     <td>{{record_user.losses}}</td>
                 </tbody>
             </table>
-    </div>
+    </div> -->
 </section>
 <!-- end game card -->
