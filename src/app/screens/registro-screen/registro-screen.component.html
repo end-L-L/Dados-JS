@@ -1,0 +1,66 @@
+<section class="registro-user">
+    <div class="wrapper">
+        <div class="section-registro">
+            <div class="header-registro">
+                <mat-icon class="icon-back" (click)="regresar()">arrow_back</mat-icon>
+                <span class="title">Registrarse</span>
+                <mat-icon class="icon-forward">arrow_forward</mat-icon>
+            </div>
+            <div class="body-registro">
+                <div class="img-card">
+                    <img src="../../../assets/img/reality_man.svg">
+                </div>
+                <!-- Input Nombre -->
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput [(ngModel)]="user.name" placeholder="Escribe Nombre Completo o Parcial">
+                </mat-form-field>
+                <div *ngIf="errors.name" class="invalid-feedback">{{ errors.name }}</div>
+
+                <!-- Input Iniciales -->
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Iniciales</mat-label>
+                    <input matInput [(ngModel)]="user.alias" placeholder="Escribe Iniciales">
+                </mat-form-field>
+                <div *ngIf="errors.alias" class="invalid-feedback">{{ errors.alias }}</div>
+
+                <!-- Input Fecha de Nacimiento -->
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="user.born_date" (focus)="picker.open()" placeholder="Selecciona fecha de nacimiento" (dateChange)="changeFecha($event)" type="string">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker ></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="errors.born_date" class="invalid-feedback">{{ errors.born_date }}</div>
+
+                <!-- Input Correo -->
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput [(ngModel)]="user.email" placeholder="Escribe Correo Electrónico">
+                </mat-form-field>
+                <div *ngIf="errors.email" class="invalid-feedback">{{ errors.email }}</div>
+
+                <!-- Input Contraseña -->
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [(ngModel)]="user.password1" type="{{ inputType_1 }}" placeholder="Escribe Contraseña">
+                    <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+                <div *ngIf="errors.password1" class="invalid-feedback">{{ errors.password1 }}</div>
+        
+                <!-- Input Confirmar contraseña -->
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Confirmar Contraseña</mat-label>
+                    <input matInput [(ngModel)]="user.password2" type="{{ inputType_2 }}" placeholder="Confirma la Contraseña">
+                    <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+                <div *ngIf="errors.password2" class="invalid-feedback">{{ errors.password2 }}</div>
+                
+                <div class="section-buttons">
+                    <button class="btn btn-primary" (click)="regresar()">Cancelar</button>
+                    <button class="btn btn-secondary" type="submit" (click)="registrar()">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
