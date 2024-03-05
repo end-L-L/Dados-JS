@@ -40,7 +40,7 @@ export class LoginScreenComponent implements OnInit{
      //Si no hay Errores, Iniciamos Sesion
      this.facadeService.login(this.username, this.password).subscribe({
       next: (response)=>{
-        console.log(response);
+        //console.log(response);
         this.facadeService.saveUserData(response);
         this.router.navigate(["home"]);
       }, 

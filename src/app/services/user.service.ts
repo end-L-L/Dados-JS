@@ -28,7 +28,6 @@ export class UserService {
   }
 
   public validateUser(data: any){
-    console.log("Validando user... ", data);
     let error: any = [];
 
     // Validar Nombre

@@ -40,7 +40,7 @@ export class RegistroScreenComponent implements OnInit{
 
   ngOnInit(): void {
     this.user = this.userService.esquemaUser();
-    console.log("User: ", this.user);
+    //console.log("User: ", this.user);
   }
 
   //Funciones para Password
@@ -67,12 +67,8 @@ export class RegistroScreenComponent implements OnInit{
   }
 
     //Función para Detectar el Cambio de Fecha
-    public changeFecha(event :any){
-      console.log(event);
-      console.log(event.value.toISOString());
-      
+    public changeFecha(event :any){      
       this.user.born_date = event.value.toISOString().split("T")[0];
-      console.log("Fecha: ", this.user.fecha_nacimiento);
     }
 
   regresar(){
@@ -88,15 +84,12 @@ export class RegistroScreenComponent implements OnInit{
       return false;
     }
 
-        //Valida la contraseña
+        //Valida la Contraseña
         if(this.user.password1 == this.user.password2){
-          //Funcion para registrarse
-          alert("Todo OK, Registrando Usuario...");
-    
+          //Funcion para Registrar Usuario
           this.apiService.registrarUsuario(this.user).subscribe({
             next: (response) => {
-              alert("Usuario registrado correctamente");
-              console.log("Usuario registrado: ", response);
+              alert("Usuario Registrado Correctamente");
               this.router.navigate(["/"]);
             },
             error: (error) => {
