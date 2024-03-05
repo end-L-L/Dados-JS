@@ -7,30 +7,28 @@
     <div class="body-modal">
         <div *ngIf="resultado === 1; else perdedorTemplate">
             <p class="title-modal">¡Victoria!</p>
-          </div>
-          <ng-template #perdedorTemplate>
-            <div *ngIf="resultado === 0">
-              <p class="title-modal">¡Derrota!</p>
-            </div>
-          </ng-template>
-          <h1 class="title-modal">¿Volver a Jugar o Salir?</h1>
-          
-        <!-- <span class="descripcion">Estás a punto de eliminar este usario. Una vez que lo elimines no podrás deshacer esta acción.</span> -->
+        </div>
+        <ng-template #perdedorTemplate>
+        <div *ngIf="resultado === 0">
+            <p class="title-modal">¡Derrota!</p>
+        </div>
+        </ng-template>
+        <h1 class="title-modal">¿Volver a Jugar o Salir?</h1>
 
         <div class="record-container">
             <h1 class="title-modal">Historial de Juegos</h1>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">N1 - Wins</th>
-                        <th scope="col">N2 - Wins</th>
-                        <th scope="col">N3 - Wins</th>
-                        <th scope="col">N1 - Lost</th>
-                        <th scope="col">N2 - Lost</th>
-                        <th scope="col">N3 - Lost</th>
-                        <th scope="col">Total Wins</th>
-                        <th scope="col">Total Lost</th>
+                        <th scope="col">Jugador</th>
+                        <th scope="col">N1 - G</th>
+                        <th scope="col">N2 - G</th>
+                        <th scope="col">N3 - G</th>
+                        <th scope="col">N1 - P</th>
+                        <th scope="col">N2 - P</th>
+                        <th scope="col">N3 - P</th>
+                        <th scope="col">Total Ganadas</th>
+                        <th scope="col">Total Perdidas</th>
                         </tr>
                     </thead>
                     <tbody>

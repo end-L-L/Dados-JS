@@ -1,68 +1,56 @@
 <!-- header -->
 <section class="header-container">
     <button class="logout-hide" mat-flat-button></button>
-    <span class="title">Dashboard</span>
+    <span class="title">Juego de Dados</span>
     <button class="logout" mat-flat-button color="warn" (click)="logOut()">Cerrar Sesión</button>
 </section>
 <!-- end header -->
 
 <!-- game card -->
 <section class="game-card">
-    <div class="game-container">
-        <h2>Juego de Dados</h2>
-        
-        <div class="choose-level">
-            <label for="difficulty">Dificultad: </label>
-            <select id="difficulty" [(ngModel)]="difficulty" (change)="updateDifficulty()" [disabled]="difficultySelected">
-                <option value="novato">Novato</option>
-                <option value="normal">Normal</option>
-                <option value="experto">Experto</option>
-            </select>
-        </div>
 
-        <div class="scoring-required">
-            <p id="score-needed">Puntuación Necesaria: <span>{{ scoreNeeded }}</span></p>
+    <div class="section-left">
+        <div class="game-instructions">
+            <h1 class="center">Bienvenido {{alias}}</h1>
+            <p class="center">Instrucciones: </p>
+            <p></p>
+            <p>I.- Selecciona el Nivel de Dificultad.</p>
+            <p>II.- Lanza los Dados.</p>
+            <p>III.- Ganas si Obtienes el Puntaje Necesario para Cada Nivel.</p>
+            <p></p>
+            <p class="center">Puntajes Para Ganar:</p>
+            <p></p>
+            <p>Novato: 6</p>
+            <p>Normal: 7</p>
+            <p>Experto: 15</p>
         </div>
-
-        <div class="current-score">
-            <p id="score-obtained">Puntuación Actual: <span>{{ currentScore }}</span></p>
-        </div>
-
-        <div class="dice-container">
-            <div *ngFor="let die of diceRolls" class="die">{{ die }}</div>
-        </div>
-
-        <button class="roll-button" (click)="rollDice()" [disabled]="rollDiceButton">Lanzar Dados</button>
     </div>
 
-    <!-- <div class="record-container">
-        <h1>Historial de Juegos</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">N1 - W</th>
-                    <th scope="col">N2 - W</th>
-                    <th scope="col">N3 - W</th>
-                    <th scope="col">N1 - L</th>
-                    <th scope="col">N2 - L</th>
-                    <th scope="col">N3 - L</th>
-                    <th scope="col">Total Ganados</th>
-                    <th scope="col">Total Perdidos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <td>{{record_user.user}}</td>
-                    <td>{{record_user.n1w}}</td>
-                    <td>{{record_user.n2w}}</td>
-                    <td>{{record_user.n3w}}</td>
-                    <td>{{record_user.n1l}}</td>
-                    <td>{{record_user.n2l}}</td>
-                    <td>{{record_user.n3l}}</td>
-                    <td>{{record_user.wins}}</td>
-                    <td>{{record_user.losses}}</td>
-                </tbody>
-            </table>
-    </div> -->
+    <div class="section-right">
+        <div class="game-container">
+            <p class="center">Selecciona el Nivel de Dificultad</p>
+            <div class="choose-level">
+                <select id="difficulty" [(ngModel)]="difficulty" (change)="updateDifficulty()" [disabled]="difficultySelected">
+                    <option value="novato">Novato</option>
+                    <option value="normal">Normal</option>
+                    <option value="experto">Experto</option>
+                </select>
+            </div>
+    
+            <div class="scoring-required">
+                <p id="score-needed">Puntuación Necesaria: <span>{{ scoreNeeded }}</span></p>
+            </div>
+    
+            <div class="current-score">
+                <p id="score-obtained">Puntuación Actual: <span>{{ currentScore }}</span></p>
+            </div>
+    
+            <div class="dice-container">
+                <div *ngFor="let die of diceRolls" class="die">{{ die }}</div>
+            </div>
+    
+            <button class="roll-button" (click)="rollDice()" [disabled]="rollDiceButton">Lanzar Dados</button>
+        </div>
+    </div>
 </section>
 <!-- end game card -->

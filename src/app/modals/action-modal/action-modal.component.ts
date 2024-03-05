@@ -25,12 +25,9 @@ export class ActionModalComponent implements OnInit {
   ngOnInit(): void {
     // Record Initialization
     this.obtenerRecord();
-    console.log("Data: ", this.data);
-    console.log(typeof(this.data.resultado)); 
 
     // User Name Initialization
     this.userName = this.facadeService.getUserCompleteName().split(" ")[0];
-    console.log("User Name: ", this.userName);
   }
 
   public resultado:number = this.data.resultado;
@@ -42,7 +39,6 @@ export class ActionModalComponent implements OnInit {
   public obtenerRecord(){
     this.apiService.obtenerRecord().subscribe({
       next: (response) => {
-        console.log("Record: ", response);
         this.record_user = response;
       },
       error: (error) => {
@@ -55,8 +51,6 @@ export class ActionModalComponent implements OnInit {
     this.dialogRef.close();
     this.facadeService.logOut().subscribe({
       next: (response) => {
-        console.log("Entró");
-        
         this.facadeService.destroyUser();
         //Navega al login
         this.router.navigate(["/"]);

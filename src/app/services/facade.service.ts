@@ -21,7 +21,7 @@ const user_email_cookie_name = 'app-web-email';
 const user_id_cookie_name = 'app-web-user_id';
 const user_complete_name_cookie_name = 'app-web-user_complete_name';
 const group_name_cookie_name = 'app-group_name';
-const codigo_cookie_name = 'app-web-codigo';
+const alias_cookie_name = 'app-web-alias';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,6 @@ export class FacadeService {
       "username": username,
       "password": password
     }
-    console.log("Validando login... ", data);
     let error: any = [];
 
     if(!this.validatorService.required(data["username"])){
@@ -61,30 +60,24 @@ export class FacadeService {
     return error;
   }
 
-    //Iniciar Sesión
-    login(username:String, password:String): Observable<any> {
-      var data={
-        username: username,
-        password: password
-      }
-      return this.http.post<any>(`${environment.url_api}/token/`,data);
+  //Iniciar Sesión
+  login(username:String, password:String): Observable<any> {
+    var data={
+      username: username,
+      password: password
     }
-  
-    //Cerrar Sesión
-    logOut(): Observable<any> {
-      var headers: any;
-      var token = this.getSessionToken();
-      headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
-      return this.http.get<any>(`${environment.url_api}/logout/`, {headers: headers});
-    }
+    return this.http.post<any>(`${environment.url_api}/token/`,data);
+  }
 
-  //Funciones para Cookies
-  retrieveSignedUser(){
+  //Cerrar Sesión
+  logOut(): Observable<any> {
     var headers: any;
     var token = this.getSessionToken();
-    headers = new HttpHeaders({'Authorization': 'Bearer '+token});
-    return this.http.get<any>(`${environment.url_api}/me/`,{headers:headers});
+    headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/logout/`, {headers: headers});
   }
+
+  //Funciones para Cookies
 
   getCookieValue(key:string){
     return this.cookieService.get(key);
@@ -99,7 +92,6 @@ export class FacadeService {
     return this.cookieService.get(session_cookie_name);
   }
 
-
   saveUserData(user_data:any){
     var secure = environment.url_api.indexOf("https")!=-1;
 
@@ -108,6 +100,7 @@ export class FacadeService {
     this.cookieService.set(session_cookie_name, user_data.token, undefined, undefined, undefined, secure, secure?"None":"Lax");
     this.cookieService.set(user_complete_name_cookie_name, user_data.first_name + " " + user_data.last_name, undefined, undefined, undefined, secure, secure?"None":"Lax");
     this.cookieService.set(group_name_cookie_name, user_data.roles, undefined, undefined, undefined, secure, secure?"None":"Lax");
+    this.cookieService.set(alias_cookie_name, user_data.alias, undefined, undefined, undefined, secure, secure?"None":"Lax");
   }
 
   destroyUser(){
@@ -128,6 +121,10 @@ export class FacadeService {
 
   getUserGroup(){
     return this.cookieService.get(group_name_cookie_name);
+  }
+
+  getUserAlias(){
+    return this.cookieService.get(alias_cookie_name);
   }
 
 }

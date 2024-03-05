@@ -12,13 +12,16 @@
     background-color: #0092B8;
 }
 
-.title{
-    font-size: 28px;
+.title {
+    font-size: 35px;
     font-family: Nexa-Bold;
     text-align: center;
     opacity: 1;
     font-weight: bold;
     color: #FFFFFF;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .logout-hide{
@@ -29,20 +32,42 @@
     pointer-events: none;   
 }
 
-
 /* Game Container*/
 
 .game-card {
+    width: 100vw;
+    height: 93vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #DFDBE5;
+    background-image:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='126' height='84' viewBox='0 0 126 84'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M126 83v1H0v-2h40V42H0v-2h40V0h2v40h40V0h2v40h40V0h2v83zm-2-1V42H84v40h40zM82 42H42v40h40V42zm-50-6a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm96 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm-42 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm30-12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM20 54a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm12 24a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM8 54a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm24 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM8 78a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm12 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm54 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM50 54a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm24 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM50 78a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm54-12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm12 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM92 54a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm24 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM92 78a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm24-42a4 4 0 1 1 0-8 4 4 0 0 1 0 8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.center {
+    text-align: center;
+    font-family: Nexa-Bold;
+    font-size: 28px;
+}
+
+.game-instructions {
+    font-size: 18px;
+    font-family: Nexa-Bold;
+    width: 50%;
+    background-color: #5F9EA0;
+    color: wheat;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: left;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 93vh;
-    background-color: #f0f0f0;
+    gap: 17px;
 }
 
 .game-container {
-    width: 17%;
+    width: 50%;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -53,13 +78,32 @@
     gap: 17px;
 }
 
+.section-left {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .scoring-required {
+    font-size: 25px;
     color: white;
     background-color: #39b300;
     border-radius: 5px;
-    padding: 10px;
-    display: flex; /* Agregamos esta línea */
-    justify-content: center; /* Agregamos esta línea */
+    padding: 25px;
+    display: flex;
+    justify-content: center;
 }
 
 #score-needed{
@@ -67,12 +111,13 @@
 }
 
 .current-score {
+    font-size: 25px;
     color: white;
     background-color: #39b300;
     border-radius: 5px;
-    padding: 10px;
-    display: flex; /* Agregamos esta línea */
-    justify-content: center; /* Agregamos esta línea */
+    padding: 25px;
+    display: flex;
+    justify-content: center;
 }
 
 #score-obtained{
@@ -82,14 +127,15 @@
 .dice-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 18px;
     padding: 20px;
 }
 
 .die {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     display: flex;
+    font-size: 25px;
     align-items: center;
     justify-content: center;
     background-color: #eee;
@@ -100,10 +146,10 @@
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 25px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 25px;
 }
 
 .roll-button:hover {
@@ -112,15 +158,4 @@
 
 select {
     padding: 5px;
-}
-
-/* Record Container*/
-
-.record-container {
-    text-align: center;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }

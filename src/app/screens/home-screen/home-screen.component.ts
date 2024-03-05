@@ -27,8 +27,10 @@ export class HomeScreenComponent implements OnInit{
   public diceRolls: number[] = []; // Almacena los resultados de los últimos lanzamientos de dados en un arreglo vacío.
   public flag: number = 1; // Indica si el usuario ganó o perdió, inicializado en 1.
   public aux: number = 0;  // Contador de oportunidades (max 3)
-  public difficultySelected: boolean = false;
-  public rollDiceButton: boolean = false;
+  public difficultySelected: boolean = false; // Bandera para apagar el boton de seleccionar dificultad.
+  public rollDiceButton: boolean = false; // Bandera para apagar el boton de lanzar dados.
+
+  public alias: string = "";
 
   difficultySettings = {
     novato:  {dice: 1, scoreNeeded: 6},
@@ -47,11 +49,14 @@ export class HomeScreenComponent implements OnInit{
 
     // Session Initialization
     this.token = this.facadeService.getSessionToken();
-    console.log("Token: ", this.token);
     
     // ID Initialization
     this.id = this.facadeService.getUserId();
 
+    // Alias Initialization
+    this.alias = this.facadeService.getUserAlias();
+
+    // No Token, Login.
     if(this.token == ""){
       this.router.navigate([""]);
     }
@@ -65,7 +70,7 @@ export class HomeScreenComponent implements OnInit{
 
   rollDice(): void {
     if(this.aux === 0)
-      this.difficultySelected = true;
+      this.difficultySelected = true; // Activa el boton de seleccionar dificultad.
 
     let {dice, scoreNeeded} = this.difficultySettings[this.difficulty]; // Obtiene los valores de dice y scoreNeeded de la configuración de dificultad actual.
     this.diceRolls = []; // Resetea el arreglo diceRolls.
@@ -90,20 +95,15 @@ export class HomeScreenComponent implements OnInit{
 
   checkWin(score: number, scoreNeeded: number): void {
   if (score === scoreNeeded) {
-    //alert('¡Ganaste!');
     this.flag = 1;
   } else {
-    //alert('Intenta de nuevo.');
     this.flag = 0;
   } 
-    //console.log("Result: ", this.flag);
-    //console.log("Level: ", this.difficultySettings[this.difficulty].dice);
-    //console.log("id", this.id);
     this.aux++;
-    // O gana antes de la tercera oportunidad o pierde
+    // O gana antes de la tercera oportunidad o pierde.
     if( this.flag != 0 || this.aux === 3 ){
-      this.rollDiceButton = true;
-      this.aux = 0;
+      this.rollDiceButton = true; // Apaga el boton de lanzar dados.
+      this.aux = 0; // Resetea el contador de oportunidades.
       this.dataRecord = {
         result: this.flag,
         level: this.difficultySettings[this.difficulty].dice,
@@ -111,7 +111,7 @@ export class HomeScreenComponent implements OnInit{
       }
       this.apiService.actualizarRecord(this.dataRecord).subscribe({
         next: (response) => {
-          console.log("Record Actualizado: ", response);
+          //console.log("Record Actualizado: ", response);
         },
         error: (error) => {
           console.error(error);
@@ -119,11 +119,9 @@ export class HomeScreenComponent implements OnInit{
       });
 
       setTimeout(() => {
-        // Test Modal
+        // Modal
         const dialogRef = this.dialog.open(ActionModalComponent, {
           data: {resultado: this.flag},
-          /*height: '268px',
-          width: '328px',*/
         });
         this.difficultySelected = false;
         this.rollDiceButton = false;
@@ -137,7 +135,7 @@ export class HomeScreenComponent implements OnInit{
   public obtenerRecord(){
     this.apiService.obtenerRecord().subscribe({
       next: (response) => {
-        console.log("Record: ", response);
+        //console.log("Record: ", response);
         this.record_user = response;
       },
       error: (error) => {
@@ -149,8 +147,6 @@ export class HomeScreenComponent implements OnInit{
   logOut() {
     this.facadeService.logOut().subscribe({
       next: (response) => {
-        console.log("Entró");
-        
         this.facadeService.destroyUser();
         //Navega al login
         this.router.navigate(["/"]);

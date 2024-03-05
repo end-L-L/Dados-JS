@@ -51,7 +51,7 @@
                 <!-- Input Confirmar contraseña -->
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Confirmar Contraseña</mat-label>
-                    <input matInput [(ngModel)]="user.password2" type="{{ inputType_2 }}" placeholder="Confirma la Contraseña">
+                    <input matInput [(ngModel)]="user.password2" type="{{ inputType_2 }}" placeholder="Confirma la Contraseña" (keyup.enter)="registrar()">
                     <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>
                 <div *ngIf="errors.password2" class="invalid-feedback">{{ errors.password2 }}</div>
